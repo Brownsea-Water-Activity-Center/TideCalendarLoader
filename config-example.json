@@ -1,0 +1,12 @@
+{
+  "CALENDAR_ID": "m-----------------8@group.calendar.google.com",
+  "SA_JSON_PATH": "C:/secrets/b---------------.json",
+  "WW_KEY_PATH": "C:/secrets/willyweather_apikey.txt",
+  "WW_LOCATION_ID": "6767", 
+  "WW_DAYS": 365,
+  "TIMEZONE": "Australia/Brisbane",
+  "HighTideColor":"10",
+  "HighTideLabel":"High Tide",
+  "LowTideColor":"5", 
+  "LowTideLabel": "Low Tide"
+}

@@ -1,0 +1,53 @@
+# -----------------
+# Python
+# -----------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# Bytecode cache
+*.pyc
+
+# Build/dist
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# -----------------
+# IDE / Editor
+# -----------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# -----------------
+# OS
+# -----------------
+.DS_Store
+Thumbs.db
+
+# -----------------
+# Project Secrets
+# -----------------
+# Google Service Account key
+service_account.json
+# WillyWeather API key
+ww_key.txt
+# Config file
+config.json
+
+# -----------------
+# Logs / temp
+# -----------------
+*.log
+*.tmp

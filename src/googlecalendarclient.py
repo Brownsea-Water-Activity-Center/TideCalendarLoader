@@ -152,7 +152,16 @@ class GCalClient:
 # Event body builder (tides)
 # -------------------------
 
-def event_body_from_tide(entry: Dict[str, Any], duration_minutes: int = 10, timezone_str="Australia/Brisbane") -> Dict[str, Any]:
+def event_body_from_tide(
+    entry: Dict[str, Any],
+    duration_minutes: int = 10,
+    timezone_str="Australia/Brisbane",
+    *,
+    high_color: Optional[str] = None,
+    low_color: Optional[str] = None,
+    high_label: str = "High Tide",
+    low_label: str = "Low Tide",
+) -> Dict[str, Any]:
     """Create a Google Calendar event body from a WillyWeather tide entry."""
     start_dt = datetime.fromisoformat(entry["dateTime"])
     end_dt = start_dt + timedelta(minutes=duration_minutes)
@@ -160,20 +169,21 @@ def event_body_from_tide(entry: Dict[str, Any], duration_minutes: int = 10, time
     tide_type = (entry.get("type") or "").lower()
     height = entry.get("height")
 
-    emoji = "🌊" if tide_type == "high" else "🏝️"
+    label = high_label if tide_type == "high" else low_label
+    color = (high_color if tide_type == "high" else low_color) or COLOR_MAP.get(tide_type, "9")
 
     return {
-        "summary": f"{emoji} {tide_type.title()} tide {height} m",
+        "summary": f"{label} {height}m",
         "description": f"Tide: {tide_type}\nHeight: {height} m\nSource: WillyWeather\n",
         "start": {
             "dateTime": start_dt.isoformat(),
-            "timeZone": timezone_str,        
+            "timeZone": timezone_str,
         },
         "end": {
             "dateTime": end_dt.isoformat(),
-            "timeZone": timezone_str,        
+            "timeZone": timezone_str,
         },
-        "colorId": COLOR_MAP.get(tide_type, "9"),
+        "colorId": color,
         "extendedProperties": {
             "private": {
                 "syncKey": f"tide:{entry['dateTime']}"  # 👈 simple unique key

@@ -65,8 +65,15 @@ class TideSync:
 
         tz_name = self.cfg.get("TIMEZONE", "UTC")
 
-        return [event_body_from_tide(e, timezone_str=tz_name)
-          for e in entries]
+        return [event_body_from_tide(
+                    e,
+                    timezone_str=tz_name,
+                    high_color=self.cfg.get("HighTideColor"),
+                    low_color=self.cfg.get("LowTideColor"),
+                    high_label=self.cfg.get("HighTideLabel", "High Tide"),
+                    low_label=self.cfg.get("LowTideLabel", "Low Tide"),
+                )
+                for e in entries]
 
     # -------- Sync actions --------
 

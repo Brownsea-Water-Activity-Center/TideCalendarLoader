@@ -4,6 +4,10 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+import sys
+sys.path.append(r"C:\secrets")
+from dpapi_secret import read_json  # C:\secrets files may be DPAPI-encrypted
+
 from google.oauth2.service_account import Credentials
 
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
@@ -18,7 +22,7 @@ COLOR_MAP = {
 
 class GCalClient:
     def __init__(self, sa_json_path: str, calendar_id: str):
-        creds = Credentials.from_service_account_file(sa_json_path, scopes=SCOPES)
+        creds = Credentials.from_service_account_info(read_json(sa_json_path), scopes=SCOPES)
         self.service = build("calendar", "v3", credentials=creds)
         self.calendar_id = calendar_id
 

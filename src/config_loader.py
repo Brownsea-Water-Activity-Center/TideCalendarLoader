@@ -48,9 +48,12 @@ def load_config(config_path: str | None = None) -> Dict[str, Any]:
     return cfg
 
 
+import sys
+sys.path.append(r"C:\secrets")
+from dpapi_secret import read_secret  # C:\secrets files may be DPAPI-encrypted
+
 def load_text_secret(path: str) -> str:
     """Read a text file (like ww_key.txt) and return stripped contents."""
     if not os.path.exists(path):
         raise ConfigError(f"Secret file not found: {path}")
-    with open(path, "r", encoding="utf-8") as f:
-        return f.read().strip()
+    return read_secret(path)
